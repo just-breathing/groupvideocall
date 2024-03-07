@@ -1,0 +1,156 @@
+* {
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+body
+{
+  background-color: rgb(244, 208, 111);
+}
+
+.UserForm
+{
+  position: absolute;
+  padding: 20px 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: white;
+  display: grid;
+  grid-template-rows: repeat(3,1fr);
+  gap: 20px;
+  border-radius: 12px;
+}
+.UserForm .inpblock
+{
+  display: grid;
+  grid-template-rows: .5fr 1fr;
+  gap: 6px;
+
+}
+.inpblock input
+{
+  padding: 6px 8px;
+  width:200px;
+  border: none;
+  border-radius: 2px 3px;
+  border-bottom: 2px solid rgba(92, 89, 89, 0.453);
+  font-size: 20px;
+
+}
+
+.inpblock label
+{
+  transition: all .25s;
+}
+
+.inpblock:has(input:focus) label
+{
+ letter-spacing: 2px;
+ text-transform: uppercase;
+} 
+.UserForm .joinbtn
+{
+  font-size: 16px;
+  outline: none;
+  border: none;
+  margin: auto;
+  padding: 14px 50px;
+  border-radius: 5px ;
+  background-color: rgba(57, 47, 90, 0.867);
+  color: white;
+
+  transition: all 0.28s ease-in-out ;
+}
+.UserForm .joinbtn:hover
+{
+  background-color: rgb(25, 20, 41);
+  letter-spacing: 3px;
+}
+.videogrp
+{
+  margin-top: 4px;
+  margin-left: 4px;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 30px;
+}
+.videowrap
+{
+  position: relative;
+border-radius: 5px 7px;
+overflow: hidden;
+}
+.videowrap label
+{
+  position: absolute;
+  bottom: 0px;
+  left:30px;
+  color: white;
+}
+
+.Controls
+{
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  padding: 16px 20px;
+  background-color: rgba(240, 248, 255, 0.546);
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  justify-content: center;
+  height: 70px;
+  width: 250px;
+  border-radius: 8px 12px;
+}
+.icon
+{
+  position: relative;
+  padding: 7px 18px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgb(17, 17, 17);
+  transition: all .18s;
+}
+
+.icon:hover
+{
+  border: none;
+  background-color: azure;
+  transform: scale(1.2);
+}
+
+
+.iconspan:has(.disabled)
+{
+  width: 100%;
+}
+.iconspan
+{
+position: absolute;
+top: 0;
+left: 50%;
+z-index: 1;
+left: 100px; /*this is something I don't understand but apparently is required*/
+width: 423px; /*since container is a square this equals to its diagonal: 300*1.41*/
+height: 2.7px;
+background-color: #000;
+transform: rotate(345deg); /*again, this is easy since its a square. In rectangle you'll have to find a tangent*/
+-ms-transform: rotate(345deg);
+-webkit-transform: rotate(345deg);
+transition: all .25s ease-in-out;
+}
+.disabled .iconspan
+{
+  left: -61px;
+}
+svg
+{
+  transition: all .2s;
+}
+.disabled svg
+{
+  fill: red;
+}
