@@ -1,5 +1,7 @@
 
 
+import * as process from 'process';
+
 
 
 import React from 'react';
@@ -8,7 +10,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-
+window.global = window;
+window.process = process;
+window.Buffer = [];
 
 ReactDOM.render(
   <React.StrictMode>

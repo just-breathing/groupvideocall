@@ -22,7 +22,10 @@ export const User = ({data,check,ur,rf}) => {
                 <button className='joinbtn' onClick={handleClick}> Join</button>
             </div>
             )
-            :""
+            :
+            <div className='RoomLabel'>
+                <label>Room ID : {data.room}</label>
+            </div>
 
      );
 }

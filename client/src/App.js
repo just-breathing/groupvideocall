@@ -15,8 +15,10 @@ const Vid = ({id,list,peer})=>{
   },[])
   const val = useMemo(()=>{
     const item = Object.keys(list).find(key => list[key] === String(id)); 
-    console.log(id,item)
+    console.log("item label : ",list,item,id)
+    return item
   },[list])
+
   return (
     <div className='videowrap' style={{width:"300px",height:"200px"}} >
       <video playsInline autoPlay ref={vidRef}  width={300} height={200}  />
@@ -62,7 +64,8 @@ myvideo.enabled = val;
 
 const ReqConnections = (usersdata)=>{
   console.log("userData : ",usersdata)
-  
+  const data=Object.fromEntries(usersdata)
+  usersList.current=data
   usersdata.forEach(user => {
 		const peer = new Peer({
 			initiator: true,
@@ -153,11 +156,24 @@ socketRef.current.on("connectionReq",(data)=>{
 socketRef.current.on("UE",(msg)=>{
         window.alert(msg)
 })
+
+
 socketRef.current.on("connectAct", (data) => {
   console.log("check peer : ",peersRef.current,data.from)
   const peer = peersRef.current.find((peer)=>peer.peerId===data.from)
   console.log("peer item connecting : ",peer)
   peer.peer.signal(data.signal)
+})
+
+socketRef.current.on("destroyPeer", ({Id}) => {
+  console.log("destroy peer : ",peersRef.current,Id)
+  const peer = peersRef.current.find((peer)=>peer.peerId===Id)
+  const currPeers=peersRef.current.filter((peer)=>peer.peerId!==Id)
+  setPeers(()=>[...currPeers])
+  peersRef.current=[...currPeers]
+  console.log("peer item destrying  : ",peer," and setting peers : ",currPeers)
+  peer.peer.destroy()
+
 })
 
   },[])
@@ -175,6 +191,21 @@ socketRef.current.on("join",(res)=>{
 
 }
 
+const handleExit = ()=>{
+  console.log("deleting Peer")
+  setPeers(()=>[])
+  setUserData({
+    user: null,
+    room: null
+  })
+  socketRef.current.emit("destroyPeer",{room:userData.room})
+  peersRef.current.forEach(peer=>{
+    peer.peer.destroy()
+  })
+  peersRef.current=[]
+}
+
+ 
   return (
     <div className="app">
       <User  data={userData}  check={joinRoom} ur={userRef} rf={roomRef}/>
@@ -198,7 +229,7 @@ socketRef.current.on("join",(res)=>{
               <Mic />
               </div>
             <div className={`icon ${controls.video?"":"disabled"}` } onClick={()=>toggleVideo()} ><span className={`iconspan `}></span><Cam/></div>
-            <div className='icon'><Exit/></div>
+            <div className='icon' onClick={()=>handleExit()} ><Exit/></div>
           </div>
         </div>
         :""  
