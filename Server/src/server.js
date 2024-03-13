@@ -4,11 +4,12 @@ const app =  express();
 const {rooms,removeUser,getRoom} = require("./users")
 app.use(cors());
 app.use(express.json());
+require('dotenv').config()
 
 const http = require('http').createServer(app);
 const io = require("socket.io")(http,{
     cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"]
     }
     });
@@ -125,9 +126,9 @@ io.on("connection", (socket) => {
 
 
 app.get("/",(req,res)=>{
-    res.send("got /");
+    res.sendFile("./build/index.html");
     console.log("ok got it");
 })
 
-const port = 5600;
+const port = process.env.port||5600;
 http.listen(port,()=>console.log(`listening on port ${port}`));
