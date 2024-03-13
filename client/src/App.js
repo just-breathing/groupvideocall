@@ -111,8 +111,7 @@ const acceptConnections = (data)=>{
 }
 
   useEffect(()=>{
-     socketRef.current=io("wss://groupvideocall.onrender.com:5600");
-        // socketRef.current=io("ws://localhost:5600");
+     socketRef.current=io("wss://groupvideocall.onrender.com");
 
     navigator.getUserMedia_ = (   navigator.getUserMedia
       || navigator.webkitGetUserMedia 
@@ -189,6 +188,7 @@ socketRef.current.on("join",(res)=>{
     {
       ReqConnections(res.data)
     }
+
 })
 
 }

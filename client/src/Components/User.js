@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{forwardRef, useEffect} from 'react';
 
 
-export const User = ({data,check,ur,rf}) => {
+export const User = forwardRef(({data,check,ur,rf}) => {
 
 
    const  handleClick = ()=>{
@@ -28,5 +28,5 @@ export const User = ({data,check,ur,rf}) => {
             </div>
 
      );
-}
+})
  
