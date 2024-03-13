@@ -126,7 +126,7 @@ io.on("connection", (socket) => {
 
 
 app.get("/",(req,res)=>{
-    res.sendFile("./build/index.html");
+    res.send("Ok Got /")
     console.log("ok got it");
 })
 
